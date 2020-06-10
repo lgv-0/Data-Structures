@@ -60,11 +60,34 @@ class BSTNode:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        max = self.value
+
+        def seek(cur_node):
+            nonlocal max
+
+            if (cur_node.value > max):
+                max = cur_node.value
+            
+            if cur_node.left is not None:
+                seek(cur_node.left)
+            if (cur_node.right is not None):
+                seek(cur_node.right)
+
+        seek(self)
+
+        return max
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        def foreach(cur_node):
+            fn(cur_node.value)
+
+            if cur_node.left is not None:
+                foreach(cur_node.left)
+            if (cur_node.right is not None):
+                foreach(cur_node.right)
+
+        foreach(self)
 
     # Part 2 -----------------------
 
@@ -100,5 +123,11 @@ bst.insert(14)
 bst.insert(5)
 bst.insert(9)
 bst.insert(13)
-bst.insert(20)
-print(bst.contains(20))
+bst.insert(21)
+bst.insert(22)
+bst.insert(24)
+bst.insert(25)
+bst.insert(26)
+print(bst.contains(24))
+print(bst.get_max())
+bst.for_each(print)
