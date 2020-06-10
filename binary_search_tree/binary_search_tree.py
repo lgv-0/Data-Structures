@@ -17,12 +17,46 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        new_node = BSTNode(value)
+
+        relative_node = None
+        hunt_node = self
+        while relative_node is None:
+            if hunt_node.value > value:
+                if hunt_node.left is not None:
+                    hunt_node = hunt_node.left
+                else:
+                    relative_node = hunt_node
+            else:
+                if hunt_node.right is not None:
+                    hunt_node = hunt_node.right
+                else:
+                    relative_node = hunt_node
+
+        if relative_node.value < value:
+            relative_node.right = new_node
+        else:
+            relative_node.left = new_node
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        def seek(cur_node):
+            if cur_node.value is target:
+                return True
+
+            if cur_node.value > target:
+                if cur_node.left is None:
+                    return False
+                else:
+                    return seek(cur_node.left)
+            elif cur_node.value < target:
+                if cur_node.right is None:
+                    return False
+                else:
+                    return seek(cur_node.right)
+
+        return seek(self)
 
     # Return the maximum value found in the tree
     def get_max(self):
@@ -59,3 +93,12 @@ class BSTNode:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+bst = BSTNode(12)
+bst.insert(7)
+bst.insert(14)
+bst.insert(5)
+bst.insert(9)
+bst.insert(13)
+bst.insert(20)
+print(bst.contains(20))
